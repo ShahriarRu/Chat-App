@@ -7,11 +7,16 @@
     <title>Chat App</title>
   </head>
   <body>
+    <div id="messages"></div>
     <form action="">
       <input type="text" placeholder="Enter your message" id="message" />
       <input type="submit" value="Send" id="submit" />
     </form>
     <button id="location">Send Location</button>
+
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/4.2.0/mustache.js"></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/qs/6.10.1/qs.min.js"></script> -->
     <script src="/socket.io/socket.io.js"></script>
     <script src="./js/chat.js"></script>
   </body>
