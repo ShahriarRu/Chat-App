@@ -4,10 +4,12 @@ const message = document.getElementById("message");
 const submit = document.getElementById("submit");
 const loc = document.getElementById("location");
 const messages = document.getElementById("messages");
+const sendAudio = document.getElementById("sendAudio");
 // const messageTemplate = document.getElementById("message-template");
 
 submit.addEventListener("click", (e) => {
   e.preventDefault();
+  sendAudio.play();
   if (!message.value) {
     return;
   }
@@ -22,17 +24,27 @@ submit.addEventListener("click", (e) => {
 
 socket.on("message", (message) => {
   console.log(message.text);
-  let html = `<div>
-      <p>${message.text} - ${moment(message.createdAt).format("hh:mm a")}</p>
+  let html = `<div  id="message-template class="message"> 
+      <p>
+        <span class="message__name">User Name</span>
+        <span class="message__meta">${moment(message.createdAt).format(
+          "h:mm a"
+        )}</span>
+      </p>
+      <p>${message.text}</p>
     </div>`;
   messages.insertAdjacentHTML("beforeend", html);
 });
 
 socket.on("locationMessage", (loc) => {
-  let html = `<div>
-  <p><a href="${loc.url} - " target='_blank' >My Location</a> - ${moment(
-    loc.createdAt
-  ).format("hh:mm a")}</p>
+  let html = `<div class="message">
+  <p>
+        <span class="message__name">User Name</span>
+        <span class="message__meta">${moment(loc.createdAt).format(
+          "hh:mm a"
+        )}</span>
+      </p>
+  <p><a href="${loc.url}" target='_blank' >My Location</a></p>
     </div>`;
   messages.insertAdjacentHTML("beforeend", html);
 });
@@ -56,3 +68,9 @@ loc.addEventListener("click", () => {
     );
   });
 });
+
+const { username, room } = Qs.parse(location.search, {
+  ignoreQueryPrefix: true,
+});
+
+socket.emit("join", { username, room });

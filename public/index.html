@@ -4,20 +4,26 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./css/styles.css" />
+    <link rel="icon" href="./img/favicon.png" />
     <title>Chat App</title>
   </head>
   <body>
-    <div id="messages"></div>
-    <form action="">
-      <input type="text" placeholder="Enter your message" id="message" />
-      <input type="submit" value="Send" id="submit" />
-    </form>
-    <button id="location">Send Location</button>
-
-    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/4.2.0/mustache.js"></script> -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
-    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/qs/6.10.1/qs.min.js"></script> -->
-    <script src="/socket.io/socket.io.js"></script>
-    <script src="./js/chat.js"></script>
+    <div class="centered-form">
+      <div class="centered-form__box">
+        <form action="./chat.html">
+          <label for="username">Display Name</label>
+          <input
+            type="text"
+            name="username"
+            placeholder="Display Name"
+            required
+          />
+          <label for="room">Room</label>
+          <input type="text" name="room" placeholder="room" required />
+          <button>Join</button>
+        </form>
+      </div>
+    </div>
   </body>
 </html>
