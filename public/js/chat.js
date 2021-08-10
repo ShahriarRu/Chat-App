@@ -25,13 +25,13 @@ submit.addEventListener("click", (e) => {
 socket.on("message", (message) => {
   console.log(message.text);
   let html = `<div  id="message-template class="message"> 
-      <p>
-        <span class="message__name">User Name</span>
+      <p >
+        <span class="message__name">${message.username}</span>
         <span class="message__meta">${moment(message.createdAt).format(
           "h:mm a"
         )}</span>
       </p>
-      <p>${message.text}</p>
+      <p style="background: red; width: auto">${message.text}</p>
     </div>`;
   messages.insertAdjacentHTML("beforeend", html);
 });
@@ -39,7 +39,7 @@ socket.on("message", (message) => {
 socket.on("locationMessage", (loc) => {
   let html = `<div class="message">
   <p>
-        <span class="message__name">User Name</span>
+        <span class="message__name">${loc.username}</span>
         <span class="message__meta">${moment(loc.createdAt).format(
           "hh:mm a"
         )}</span>
@@ -73,4 +73,9 @@ const { username, room } = Qs.parse(location.search, {
   ignoreQueryPrefix: true,
 });
 
-socket.emit("join", { username, room });
+socket.emit("join", { username, room }, (error) => {
+  if (error) {
+    alert(error);
+    location.href = "/";
+  }
+});
