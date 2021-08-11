@@ -5,7 +5,8 @@ const submit = document.getElementById("submit");
 const loc = document.getElementById("location");
 const messages = document.getElementById("messages");
 const sendAudio = document.getElementById("sendAudio");
-// const messageTemplate = document.getElementById("message-template");
+const sideBar = document.getElementById("room");
+const userList = document.getElementById("user-list");
 
 submit.addEventListener("click", (e) => {
   e.preventDefault();
@@ -31,7 +32,9 @@ socket.on("message", (message) => {
           "h:mm a"
         )}</span>
       </p>
-      <p style="background: red; width: auto">${message.text}</p>
+      <p style="background: red; display: inline-block; text-align: left">${
+        message.text
+      }</p>
     </div>`;
   messages.insertAdjacentHTML("beforeend", html);
 });
@@ -47,6 +50,14 @@ socket.on("locationMessage", (loc) => {
   <p><a href="${loc.url}" target='_blank' >My Location</a></p>
     </div>`;
   messages.insertAdjacentHTML("beforeend", html);
+});
+
+socket.on("roomData", ({ room, users }) => {
+  sideBar.innerHTML = `<h2 class="room-itle">${room}</h2>`;
+  userList.innerHTML = "";
+  users.forEach((user) => {
+    userList.insertAdjacentHTML("afterbegin", `<li>${user.username}</li>`);
+  });
 });
 
 loc.addEventListener("click", () => {
